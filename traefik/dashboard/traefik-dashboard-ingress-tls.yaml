@@ -17,7 +17,7 @@ spec:
               service:
                 name: traefik-dashboard
                 port:
-                  number: 5678
+                  number: 9000
   tls:
     - secretName: traefik-dashboard-tls
       hosts:
