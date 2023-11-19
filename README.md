@@ -9,6 +9,10 @@
 - All environment variables are declared at the `env.sh``.
 - Modify the contents of the `env.sh` and run it.
 
+```sh
+source env.sh
+```
+
 ### How to apply with Environment Varibles?
 
 ```sh
