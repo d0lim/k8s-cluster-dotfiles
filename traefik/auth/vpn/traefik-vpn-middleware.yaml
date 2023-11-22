@@ -1,0 +1,12 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: vpn-ipwhitelist
+spec:
+  ipWhiteList:
+    sourceRange:
+      - 127.0.0.1/32
+      - ${VPN_IP}
+      - ${ROUTER_IP}
+      - ${ROUTER_GATEWAY_IP}
+      - ${IN_HOUSE_PC_IP}
