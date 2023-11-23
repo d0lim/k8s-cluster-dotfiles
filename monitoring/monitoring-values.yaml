@@ -1,0 +1,9 @@
+grafana:
+  defaultDashboardsTimezone: Asia/Seoul
+  adminPassword: leg3nd-monitoring
+
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    retention: 14d
+    retentionSize: "32GiB"
