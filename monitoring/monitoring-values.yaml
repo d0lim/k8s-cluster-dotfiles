@@ -1,6 +1,6 @@
 grafana:
   defaultDashboardsTimezone: Asia/Seoul
-  adminPassword: leg3nd-monitoring
+  adminPassword: yourpassword
 
 prometheus:
   prometheusSpec:
