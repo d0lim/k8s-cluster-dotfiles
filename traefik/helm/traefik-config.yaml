@@ -35,6 +35,8 @@ spec:
         exposePort: 443
         tls:
           enable: true
+      metrics:
+        port: 9101
     updateStrategy:
       type: RollingUpdate
       rollingUpdate:
