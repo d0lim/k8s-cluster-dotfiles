@@ -12,7 +12,9 @@ spec:
         enabled: true
     deployment:
       kind: DaemonSet
-
+    providers:
+      kubernetesCRD:
+        allowCrossNamespace: true
     # no load balancer
     service:
       enabled: false
