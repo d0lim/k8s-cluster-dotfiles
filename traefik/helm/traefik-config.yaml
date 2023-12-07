@@ -5,6 +5,8 @@ metadata:
   namespace: kube-system
 spec:
   valuesContent: |-
+    additionalArguments:
+      - "--providers.kubernetesingress.ingressendpoint.ip=127.0.0.1"
     logs:
       general:
         level: DEBUG
