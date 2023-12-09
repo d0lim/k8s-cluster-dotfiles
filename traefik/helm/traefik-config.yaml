@@ -7,6 +7,7 @@ spec:
   valuesContent: |-
     additionalArguments:
       - "--providers.kubernetesingress.ingressendpoint.ip=127.0.0.1"
+      - "--entryPoints.postgresql.address=:5432/tcp"
     logs:
       general:
         level: DEBUG
@@ -41,6 +42,11 @@ spec:
           enable: true
       metrics:
         port: 9101
+      postgresql:
+        port: 5432
+        expose: true
+        exposePort: 5432
+        protocol: TCP
     updateStrategy:
       type: RollingUpdate
       rollingUpdate:
