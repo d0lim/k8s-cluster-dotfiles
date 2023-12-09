@@ -1,9 +1,30 @@
 grafana:
   defaultDashboardsTimezone: Asia/Seoul
   adminPassword: yourpassword
+  persistence:
+    enabled: true
+    type: pvc
+    storageClassName: "local-path"
+    accessModes:
+      - ReadWriteOnce
+    size: 4Gi
+    finalizers:
+      - kubernetes.io/pvc-protection
+    existingClaim: pvc-grafana
 
 prometheus:
   prometheusSpec:
     serviceMonitorSelectorNilUsesHelmValues: false
     retention: 14d
     retentionSize: "32GiB"
+    storageSpec:
+      volumeClaimTemplate:
+        metadata:
+          name: prometheus-local-pvc
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          storageClassName: "local-path"
+          resources:
+            requests:
+              storage: 32Gi
