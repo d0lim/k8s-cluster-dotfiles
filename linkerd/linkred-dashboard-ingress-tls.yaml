@@ -1,0 +1,36 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: linkerd-dashboard-header
+spec:
+  headers:
+    customRequestHeaders:
+      Host: "web.linkerd-viz.svc"
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: linkerd-dashboard-tls-ingress
+  namespace: linkerd-viz
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd, default-vpn-ipwhitelist@kubernetescrd, default-linkerd-dashboard-header@kubernetescrd
+    ingress.kubernetes.io/custom-request-headers: l5d-dst-override:web.linkerd-viz.svc.cluster.local:8084
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: linkerd.${DOMAIN}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web
+                port:
+                  number: 8084
+  tls:
+    - secretName: linkerd-dashboard-tls
+      hosts:
+        - linkerd.${DOMAIN}
