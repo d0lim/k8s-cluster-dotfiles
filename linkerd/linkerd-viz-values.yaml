@@ -1,0 +1,3 @@
+prometheusUrl: "http://prometheus-stack-kube-prom-prometheus.monitoring.svc.cluster.local:9090"
+prometheus:
+  enabled: false
