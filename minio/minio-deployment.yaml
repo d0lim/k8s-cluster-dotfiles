@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio
+  namespace: minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/minio: ""
+      volumes:
+        - name: pv-for-minio
+      containers:
+      - name: minio
+        image: minio/minio:latest
+        args:
+        - server
+        - --console-address
+        - ":9001"
+        - "/storage"
+        env:
+        - name: MINIO_ROOT_USER
+          value: "admin"
+        - name: MINIO_ROOT_PASSWORD
+          value: "password"
+        - name: TZ
+          value: Asia/Seoul
+        - name: LANG
+          value: ko_KR.utf8
+        ports:
+        - containerPort: 9000
+        - containerPort: 9001
+        volumeMounts:
+        - name: pv-for-minio
+          mountPath: "/storage"
