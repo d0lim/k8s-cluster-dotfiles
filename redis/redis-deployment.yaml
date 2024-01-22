@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/redis: ""
+      containers:
+      - name: redis
+        image: redis:7.2
+        resources:
+          limits:
+            cpu: 500m
+            memory: 4.5Gi
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - mountPath: /redis-data
+          name: data
+        - mountPath: /redis
+          name: config
+        args: [ "redis-server", "/redis/redis.conf" ]
+      volumes:
+      - name: data
+        emptyDir: {}
+      - name: config  
+        configMap:
+          name: redis-config-map
+          items:
+          - key: redis-config
+            path: redis.conf
