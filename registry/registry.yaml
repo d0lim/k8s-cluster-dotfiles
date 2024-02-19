@@ -46,7 +46,7 @@ metadata:
   namespace: registry
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd, default-registry-cors@kubernetescrd, default-registry-basic-auth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: default-github-ipwhitelist@kubernetescrd, default-redirect-https@kubernetescrd, default-registry-cors@kubernetescrd, default-registry-basic-auth@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
