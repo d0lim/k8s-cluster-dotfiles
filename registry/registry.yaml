@@ -34,10 +34,16 @@ spec:
           volumeMounts:
             - name: registry-localstorage-volume
               mountPath: /var/lib/registry
+            - name: registry-config-volume
+              mountPath: /etc/docker/registry/config.yaml
+              subPath: config.yaml
       volumes:
         - name: registry-localstorage-volume
           persistentVolumeClaim:
             claimName: docker-registry-pvc
+        - name: registry-config-volume
+          configMap:
+            name: registry-config
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
